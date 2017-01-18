@@ -1,0 +1,70 @@
+{namespace LiferayLive}
+
+/**
+ * @param? comments
+ * @param? talkId
+ * @param? talks
+ */
+{template .render}
+	<div class="liferay-live">
+		<div class="container">
+			{if $talkId}
+				{call .commentForm data="all" /}
+				{call .comments data="all" /}
+			{else}
+				{call .talkForm data="all" /}
+				{call .talks data="all" /}
+			{/if}
+		</div>
+	</div>
+{/template}
+
+/**
+ *
+ */
+{template .commentForm}
+	<section class="comment-form">
+		<form data-onsubmit="handleCommentSubmit_">
+			<label for="text">Comment</label>
+			<input id="text" name="text" />
+		</form>
+	</section>
+{/template}
+
+/**
+ *
+ */
+{template .talkForm}
+	<section class="talk-form">
+		<form data-onsubmit="handleTalkSubmit_">
+			<label for="name">Name</label>
+			<input id="name" name="name" />
+		</form>
+	</section>
+{/template}
+
+/**
+ * @param talks
+ */
+{template .talks}
+	<section class="talks">
+		{foreach $talk in $talks}
+			<div class="talk" data-onclick="handleTalkClick_" data-talkid="{$talk.id}">
+				<span class="talk-name">{$talk.name}</span>
+			</div>
+		{/foreach}
+	</section>
+{/template}
+
+/**
+ * @param comments
+ */
+{template .comments}
+	<section class="comments">
+		{foreach $comment in $comments}
+			<div class="comment">
+				<span class="comment-text">{$comment.text}</span>
+			</div>
+		{/foreach}
+	</section>
+{/template}

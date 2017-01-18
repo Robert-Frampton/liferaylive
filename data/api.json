@@ -1,0 +1,10 @@
+[
+	{
+		"path": "/comments/*",
+		"data": true
+	},
+	{
+		"path": "/talks/*",
+		"data": true
+	}
+]

@@ -1,0 +1,7 @@
+{
+	"env": {
+		"WEDEPLOY_WEB_PATH": "/build/"
+	},
+	"id": "hosting",
+	"type": "wedeploy/hosting"
+}

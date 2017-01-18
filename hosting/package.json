@@ -1,0 +1,20 @@
+{
+  "name": "hosting",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "build": "metal build"
+  },
+  "author": "Rob Frampton <rob.g.frampton@gmail.com> (https://github.com/Robert-Frampton)",
+  "license": "ISC",
+  "devDependencies": {
+    "metal-cli": "^2.1.2",
+    "metal-component": "^2.6.2",
+    "metal-soy": "^2.6.2"
+  },
+  "dependencies": {
+    "metal-soy": "^2.6.2"
+  }
+}
