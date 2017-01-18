@@ -14474,7 +14474,7 @@ babelHelpers;
 				this.auth = auth;
 				this.data = data;
 
-				this.vibrate_ = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+				navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
 				this.signIn();
 			}
@@ -14506,7 +14506,7 @@ babelHelpers;
 					return comment;
 				});
 
-				this.notify();
+				this.notify_();
 
 				this.comments = comments;
 			}
@@ -14609,6 +14609,13 @@ babelHelpers;
 				}
 			}
 		}, {
+			key: 'notify_',
+			value: function notify_() {
+				if (navigator.vibrate) {
+					navigator.vibrate(400);
+				}
+			}
+		}, {
 			key: 'syncTalkId',
 			value: function syncTalkId(talkId) {
 				if (talkId) {
@@ -14638,13 +14645,6 @@ babelHelpers;
 					auth.signInWithRedirect(provider);
 
 					auth.onSignIn(this.handleSignedIn.bind(this));
-				}
-			}
-		}, {
-			key: 'notify',
-			value: function notify() {
-				if (this.vibrate_) {
-					this.vibrate_(400);
 				}
 			}
 		}, {

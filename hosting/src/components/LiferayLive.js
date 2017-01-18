@@ -27,7 +27,7 @@ class LiferayLive extends Component {
 		this.auth = auth;
 		this.data = data;
 
-		this.vibrate_ = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate
+		navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
 		this.signIn();
 	}
@@ -55,7 +55,7 @@ class LiferayLive extends Component {
 			return comment;
 		});
 
-		this.notify();
+		this.notify_();
 
 		this.comments = comments;
 	}
@@ -143,6 +143,12 @@ class LiferayLive extends Component {
 		}
 	}
 
+	notify_() {
+		if (navigator.vibrate) {
+			navigator.vibrate(400);
+		}
+	}
+
 	syncTalkId(talkId) {
 		if (talkId) {
 			this.fetchComments_();
@@ -172,12 +178,6 @@ class LiferayLive extends Component {
 			auth.signInWithRedirect(provider);
 
 			auth.onSignIn(this.handleSignedIn.bind(this));
-		}
-	}
-
-	notify() {
-		if (this.vibrate_) {
-			this.vibrate_(400);
 		}
 	}
 
