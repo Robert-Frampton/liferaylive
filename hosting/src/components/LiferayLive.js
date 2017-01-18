@@ -171,7 +171,7 @@ class LiferayLive extends Component {
 
 			auth.signInWithRedirect(provider);
 
-			auth.onSignIn(this.handleSignIn.bind(this));
+			auth.onSignIn(this.handleSignedIn.bind(this));
 		}
 	}
 
