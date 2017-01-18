@@ -27,7 +27,19 @@ class LiferayLive extends Component {
 		this.auth = auth;
 		this.data = data;
 
+		this.vibrate_ = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate
+
 		this.signIn();
+	}
+
+	applyHash() {
+		const {hash} = location;
+
+		// TODO: validate talkId
+
+		if (hash) {
+			this.talkId = hash.substring(1, hash.length);
+		}
 	}
 
 	afterFetchTalks_(talks) {
@@ -35,6 +47,16 @@ class LiferayLive extends Component {
 	}
 
 	afterFetchComments_(comments) {
+		comments = comments.map(comment => {
+			const time = new Date(comment.time);
+
+			comment.time = `${time.getHours()}:${time.getMinutes()}`;
+
+			return comment;
+		});
+
+		this.notify();
+
 		this.comments = comments;
 	}
 
@@ -48,7 +70,7 @@ class LiferayLive extends Component {
 	}
 
 	fetchTalks_() {
-		const {data} = this;
+		const {auth, data} = this;
 
 		data.get(COLLECTION_TALKS)
 			.then(this.afterFetchTalks_.bind(this));
@@ -57,26 +79,38 @@ class LiferayLive extends Component {
 	handleCommentSubmit_(event) {
 		event.preventDefault();
 
-		const {data, talkId} = this;
+		const {currentUser, data, talkId} = this;
 		const {target} = event;
 
 		const text = target.text.value;
-
 		const time = Date.now();
+		const {name, id} = currentUser;
 
 		if (text) {
 			data.create('comments', {
 				talkId,
 				text,
-				time
+				time,
+				user: {
+					id,
+					name
+				}
 			});
 
 			target.text.value = '';
 		}
 	}
 
+	handleSignOutClick_() {
+		const {auth} = this.auth;
+
+		auth.signOut();
+	}
+
 	handleSignedIn(currentUser) {
 		this.currentUser = currentUser;
+
+		this.applyHash();
 
 		this.fetchTalks_();
 		this.watchTalks_();
@@ -87,17 +121,9 @@ class LiferayLive extends Component {
 
 		const talkId = delegateTarget.getAttribute('data-talkid');
 
-		this.talkId = talkId;
-	}
+		location.hash = talkId;
 
-	syncTalkId(talkId) {
-		if (talkId) {
-			this.fetchComments_();
-			this.watchComments_();
-		}
-		else {
-			this.comments = [];
-		}
+		this.talkId = talkId;
 	}
 
 	handleTalkSubmit_(event) {
@@ -110,8 +136,20 @@ class LiferayLive extends Component {
 
 		if (name) {
 			data.create('talks', {
-				name: target.name.value
+				name
 			});
+
+			target.name.value = '';
+		}
+	}
+
+	syncTalkId(talkId) {
+		if (talkId) {
+			this.fetchComments_();
+			this.watchComments_();
+		}
+		else {
+			this.comments = [];
 		}
 	}
 
@@ -134,6 +172,12 @@ class LiferayLive extends Component {
 			auth.signInWithRedirect(provider);
 
 			auth.onSignIn(this.handleSignIn.bind(this));
+		}
+	}
+
+	notify() {
+		if (this.vibrate_) {
+			this.vibrate_(400);
 		}
 	}
 

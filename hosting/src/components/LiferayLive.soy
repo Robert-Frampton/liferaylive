@@ -2,11 +2,20 @@
 
 /**
  * @param? comments
+ * @param? currentUser
  * @param? talkId
  * @param? talks
  */
 {template .render}
 	<div class="liferay-live">
+		<div class="topper">
+			<h1><a href="/">Liferay Live</a></h1>
+
+			{if $currentUser}
+				//<button data-onclick="handleSignOutClick_">Sign Out</button>
+			{/if}
+		</div>
+
 		<div class="container">
 			{if $talkId}
 				{call .commentForm data="all" /}
@@ -25,8 +34,10 @@
 {template .commentForm}
 	<section class="comment-form">
 		<form data-onsubmit="handleCommentSubmit_">
-			<label for="text">Comment</label>
-			<input id="text" name="text" />
+			<div class="input-submit-group">
+				<input class="form-control" id="text" name="text" placeholder="Comment..." type="text" />
+				<button class="btn btn-primary" type="submit">+</button>
+			</div>
 		</form>
 	</section>
 {/template}
@@ -37,8 +48,10 @@
 {template .talkForm}
 	<section class="talk-form">
 		<form data-onsubmit="handleTalkSubmit_">
-			<label for="name">Name</label>
-			<input id="name" name="name" />
+			<div class="input-submit-group">
+				<input class="form-control" id="name" name="name" placeholder="Name of talk..." type="text" />
+				<button class="btn btn-primary" type="submit">+</button>
+			</div>
 		</form>
 	</section>
 {/template}
@@ -49,9 +62,11 @@
 {template .talks}
 	<section class="talks">
 		{foreach $talk in $talks}
-			<div class="talk" data-onclick="handleTalkClick_" data-talkid="{$talk.id}">
-				<span class="talk-name">{$talk.name}</span>
+			<div class="talk" key="{$talk.id}">
+				<a class="talk-name" data-onclick="handleTalkClick_" data-talkid="{$talk.id}" href="javascript:;">{$talk.name}</a>
 			</div>
+		{ifempty}
+			<div class="empty-label">No talks yet...</div>
 		{/foreach}
 	</section>
 {/template}
@@ -62,9 +77,16 @@
 {template .comments}
 	<section class="comments">
 		{foreach $comment in $comments}
-			<div class="comment">
+			<div class="comment" key="{$comment.id}">
+				<div class="comment-topper">
+					<span class="comment-user">{$comment.user.name}</span>
+					<span class="comment-time">{$comment.time}</span>
+				</div>
+
 				<span class="comment-text">{$comment.text}</span>
 			</div>
+		{ifempty}
+			<div class="empty-label">No comments yet...</div>
 		{/foreach}
 	</section>
 {/template}

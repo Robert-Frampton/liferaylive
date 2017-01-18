@@ -5,7 +5,8 @@
   "description": "",
   "main": "gulpfile.js",
   "scripts": {
-    "build": "metal build"
+    "build": "metal build",
+    "watch": "metal watch"
   },
   "author": "Rob Frampton <rob.g.frampton@gmail.com> (https://github.com/Robert-Frampton)",
   "license": "ISC",
