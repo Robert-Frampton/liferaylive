@@ -53,8 +53,9 @@ input.form-control {
 }
 
 .topper {
-	text-align: center;
+	color: #FFF;
 	margin-bottom: 40px;
+	text-align: center;
 }
 
 .topper h1 a {
@@ -63,7 +64,7 @@ input.form-control {
 }
 
 .topper h1 a:hover {
-	color: #F3F3F3;
+	color: #EEE;
 }
 
 .talk, .comment {
@@ -71,6 +72,10 @@ input.form-control {
 	border-radius: 5px;
 	margin: 5px 0;
 	padding: 10px;
+}
+
+.talk {
+	display: block;
 }
 
 .comment .comment-topper {

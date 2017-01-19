@@ -33,12 +33,14 @@ class LiferayLive extends Component {
 	}
 
 	applyHash() {
+		const {data} = this;
 		const {hash} = location;
 
-		// TODO: validate talkId
-
 		if (hash) {
-			this.talkId = hash.substring(1, hash.length);
+			data.get(`talks/${hash.substring(1, hash.length)}`)
+				.then(talk => {
+					this.talk = talk;
+				});
 		}
 	}
 
@@ -61,9 +63,9 @@ class LiferayLive extends Component {
 	}
 
 	fetchComments_() {
-		const {data, talkId} = this;
+		const {data, talk} = this;
 
-		data.where('talkId', talkId)
+		data.where('talkId', talk.id)
 			.orderBy('time', 'desc')
 			.get(COLLECTION_COMMENTS)
 			.then(this.afterFetchComments_.bind(this));
@@ -79,7 +81,7 @@ class LiferayLive extends Component {
 	handleCommentSubmit_(event) {
 		event.preventDefault();
 
-		const {currentUser, data, talkId} = this;
+		const {currentUser, data, talk} = this;
 		const {target} = event;
 
 		const text = target.text.value;
@@ -88,7 +90,7 @@ class LiferayLive extends Component {
 
 		if (text) {
 			data.create('comments', {
-				talkId,
+				talkId: talk.id,
 				text,
 				time,
 				user: {
@@ -119,11 +121,15 @@ class LiferayLive extends Component {
 	handleTalkClick_(event) {
 		const {delegateTarget} = event;
 
-		const talkId = delegateTarget.getAttribute('data-talkid');
+		const id = delegateTarget.getAttribute('data-talkid');
+		const name = delegateTarget.getAttribute('data-talkname');
 
-		location.hash = talkId;
+		location.hash = id;
 
-		this.talkId = talkId;
+		this.talk = {
+			id,
+			name
+		};
 	}
 
 	handleTalkSubmit_(event) {
@@ -149,8 +155,8 @@ class LiferayLive extends Component {
 		}
 	}
 
-	syncTalkId(talkId) {
-		if (talkId) {
+	syncTalk(talk) {
+		if (talk) {
 			this.fetchComments_();
 			this.watchComments_();
 		}
@@ -182,9 +188,9 @@ class LiferayLive extends Component {
 	}
 
 	watchComments_() {
-		const {data, talkId} = this;
+		const {data, talk} = this;
 
-		this.commentWatcher = data.where('talkId', talkId)
+		this.commentWatcher = data.where('talkId', talk.id)
 			.orderBy('time', 'desc')
 			.watch('comments')
 			.on('changes', this.afterFetchComments_.bind(this));
@@ -207,7 +213,7 @@ LiferayLive.STATE = {
 		value: null
 	},
 
-	talkId: {
+	talk: {
 		value: null
 	},
 

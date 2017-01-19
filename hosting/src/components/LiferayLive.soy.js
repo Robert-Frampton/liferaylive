@@ -53,12 +53,19 @@ function $render(opt_data, opt_ignored, opt_ijData) {
           itext('Liferay Live');
         ie_close('a');
       ie_close('h1');
+      if (opt_data.talk) {
+        ie_open('h3');
+          itext('Talk: ');
+          var dyn0 = opt_data.talk.name;
+          if (typeof dyn0 == 'function') dyn0(); else if (dyn0 != null) itext(dyn0);
+        ie_close('h3');
+      }
       if (opt_data.currentUser) {
       }
     ie_close('div');
     ie_open('div', null, null,
         'class', 'container');
-      if (opt_data.talkId) {
+      if (opt_data.talk) {
         $commentForm(opt_data, null, opt_ijData);
         $comments(opt_data, null, opt_ijData);
       } else {
@@ -156,23 +163,24 @@ if (goog.DEBUG) {
 function $talks(opt_data, opt_ignored, opt_ijData) {
   ie_open('section', null, null,
       'class', 'talks');
-    var talkList29 = opt_data.talks;
-    var talkListLen29 = talkList29.length;
-    if (talkListLen29 > 0) {
-      for (var talkIndex29 = 0; talkIndex29 < talkListLen29; talkIndex29++) {
-        var talkData29 = talkList29[talkIndex29];
-        ie_open('div', talkData29.id, null,
+    var talkList36 = opt_data.talks;
+    var talkListLen36 = talkList36.length;
+    if (talkListLen36 > 0) {
+      for (var talkIndex36 = 0; talkIndex36 < talkListLen36; talkIndex36++) {
+        var talkData36 = talkList36[talkIndex36];
+        ie_open('a', talkData36.id, null,
             'class', 'talk',
-            'key', talkData29.id);
-          ie_open('a', null, null,
-              'class', 'talk-name',
-              'data-onclick', 'handleTalkClick_',
-              'data-talkid', talkData29.id,
-              'href', 'javascript:;');
-            var dyn0 = talkData29.name;
-            if (typeof dyn0 == 'function') dyn0(); else if (dyn0 != null) itext(dyn0);
-          ie_close('a');
-        ie_close('div');
+            'data-onclick', 'handleTalkClick_',
+            'data-talkid', talkData36.id,
+            'data-talkname', talkData36.name,
+            'href', 'javascript:;',
+            'key', talkData36.id);
+          ie_open('span', null, null,
+              'class', 'talk-name');
+            var dyn1 = talkData36.name;
+            if (typeof dyn1 == 'function') dyn1(); else if (dyn1 != null) itext(dyn1);
+          ie_close('span');
+        ie_close('a');
       }
     } else {
       ie_open('div', null, null,
@@ -198,31 +206,31 @@ if (goog.DEBUG) {
 function $comments(opt_data, opt_ignored, opt_ijData) {
   ie_open('section', null, null,
       'class', 'comments');
-    var commentList45 = opt_data.comments;
-    var commentListLen45 = commentList45.length;
-    if (commentListLen45 > 0) {
-      for (var commentIndex45 = 0; commentIndex45 < commentListLen45; commentIndex45++) {
-        var commentData45 = commentList45[commentIndex45];
-        ie_open('div', commentData45.id, null,
+    var commentList52 = opt_data.comments;
+    var commentListLen52 = commentList52.length;
+    if (commentListLen52 > 0) {
+      for (var commentIndex52 = 0; commentIndex52 < commentListLen52; commentIndex52++) {
+        var commentData52 = commentList52[commentIndex52];
+        ie_open('div', commentData52.id, null,
             'class', 'comment',
-            'key', commentData45.id);
+            'key', commentData52.id);
           ie_open('div', null, null,
               'class', 'comment-topper');
             ie_open('span', null, null,
                 'class', 'comment-user');
-              var dyn1 = commentData45.user.name;
-              if (typeof dyn1 == 'function') dyn1(); else if (dyn1 != null) itext(dyn1);
+              var dyn2 = commentData52.user.name;
+              if (typeof dyn2 == 'function') dyn2(); else if (dyn2 != null) itext(dyn2);
             ie_close('span');
             ie_open('span', null, null,
                 'class', 'comment-time');
-              var dyn2 = commentData45.time;
-              if (typeof dyn2 == 'function') dyn2(); else if (dyn2 != null) itext(dyn2);
+              var dyn3 = commentData52.time;
+              if (typeof dyn3 == 'function') dyn3(); else if (dyn3 != null) itext(dyn3);
             ie_close('span');
           ie_close('div');
           ie_open('span', null, null,
               'class', 'comment-text');
-            var dyn3 = commentData45.text;
-            if (typeof dyn3 == 'function') dyn3(); else if (dyn3 != null) itext(dyn3);
+            var dyn4 = commentData52.text;
+            if (typeof dyn4 == 'function') dyn4(); else if (dyn4 != null) itext(dyn4);
           ie_close('span');
         ie_close('div');
       }
@@ -239,8 +247,8 @@ if (goog.DEBUG) {
   $comments.soyTemplateName = 'LiferayLive.comments';
 }
 
-exports.render.params = ["comments","currentUser","talkId","talks"];
-exports.render.types = {"comments":"any","currentUser":"any","talkId":"any","talks":"any"};
+exports.render.params = ["comments","currentUser","talk","talks"];
+exports.render.types = {"comments":"any","currentUser":"any","talk":"any","talks":"any"};
 exports.commentForm.params = [];
 exports.commentForm.types = {};
 exports.talkForm.params = [];

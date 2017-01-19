@@ -3,7 +3,7 @@
 /**
  * @param? comments
  * @param? currentUser
- * @param? talkId
+ * @param? talk
  * @param? talks
  */
 {template .render}
@@ -11,13 +11,17 @@
 		<div class="topper">
 			<h1><a href="/">Liferay Live</a></h1>
 
+			{if $talk}
+				<h3>Talk: {$talk.name}</h3>
+			{/if}
+
 			{if $currentUser}
 				//<button data-onclick="handleSignOutClick_">Sign Out</button>
 			{/if}
 		</div>
 
 		<div class="container">
-			{if $talkId}
+			{if $talk}
 				{call .commentForm data="all" /}
 				{call .comments data="all" /}
 			{else}
@@ -62,9 +66,16 @@
 {template .talks}
 	<section class="talks">
 		{foreach $talk in $talks}
-			<div class="talk" key="{$talk.id}">
-				<a class="talk-name" data-onclick="handleTalkClick_" data-talkid="{$talk.id}" href="javascript:;">{$talk.name}</a>
-			</div>
+			<a
+				class="talk"
+				data-onclick="handleTalkClick_"
+				data-talkid="{$talk.id}"
+				data-talkname="{$talk.name}"
+				href="javascript:;"
+				key="{$talk.id}"
+			>
+				<span class="talk-name">{$talk.name}</span>
+			</a>
 		{ifempty}
 			<div class="empty-label">No talks yet...</div>
 		{/foreach}
