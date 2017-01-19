@@ -47,6 +47,10 @@ input.form-control {
 	border-width: 0;
 }
 
+.sign-in {
+	text-align: center;
+}
+
 .topper, .container {
 	margin: 0 auto;
 	max-width: 400px;

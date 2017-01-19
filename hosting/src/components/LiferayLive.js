@@ -10,7 +10,7 @@ const COLLECTION_COMMENTS = 'comments';
 const COLLECTION_TALKS = 'talks';
 
 class LiferayLive extends Component {
-	attached() {
+	created() {
 		const {origin} = location;
 
 		const authUrl = origin
@@ -24,12 +24,14 @@ class LiferayLive extends Component {
 		const auth = WeDeploy.auth(authUrl);
 		const data = WeDeploy.data(dataUrl);
 
+		this.currentUser = auth.currentUser;
+
+		auth.onSignIn(this.handleSignedIn.bind(this));
+
 		this.auth = auth;
 		this.data = data;
 
 		navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-
-		this.signIn();
 	}
 
 	applyHash() {
@@ -118,6 +120,10 @@ class LiferayLive extends Component {
 		this.watchTalks_();
 	}
 
+	handleSignInClick_() {
+		this.signIn();
+	}
+
 	handleTalkClick_(event) {
 		const {delegateTarget} = event;
 
@@ -168,23 +174,14 @@ class LiferayLive extends Component {
 	signIn() {
 		const {auth} = this;
 
-		const {currentUser} = auth;
+		const redirectUrl = location.origin;
 
-		if (currentUser) {
-			this.handleSignedIn(currentUser);
-		}
-		else {
-			const redirectUrl = location.origin;
+		const provider = new auth.provider.Google();
 
-			const provider = new auth.provider.Google();
+		provider.setProviderScope('email');
+		provider.setRedirectUri(redirectUrl);
 
-			provider.setProviderScope('email');
-			provider.setRedirectUri(redirectUrl);
-
-			auth.signInWithRedirect(provider);
-
-			auth.onSignIn(this.handleSignedIn.bind(this));
-		}
+		auth.signInWithRedirect(provider);
 	}
 
 	watchComments_() {

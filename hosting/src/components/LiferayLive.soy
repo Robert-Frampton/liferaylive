@@ -14,14 +14,12 @@
 			{if $talk}
 				<h3>Talk: {$talk.name}</h3>
 			{/if}
-
-			{if $currentUser}
-				//<button data-onclick="handleSignOutClick_">Sign Out</button>
-			{/if}
 		</div>
 
 		<div class="container">
-			{if $talk}
+			{if not $currentUser}
+				{call .signIn data="all" /}
+			{elseif $talk}
 				{call .commentForm data="all" /}
 				{call .comments data="all" /}
 			{else}
@@ -43,6 +41,35 @@
 				<button class="btn btn-primary" type="submit">+</button>
 			</div>
 		</form>
+	</section>
+{/template}
+
+/**
+ * @param comments
+ */
+{template .comments}
+	<section class="comments">
+		{foreach $comment in $comments}
+			<div class="comment" key="{$comment.id}">
+				<div class="comment-topper">
+					<span class="comment-user">{$comment.user.name}</span>
+					<span class="comment-time">{$comment.time}</span>
+				</div>
+
+				<span class="comment-text">{$comment.text}</span>
+			</div>
+		{ifempty}
+			<div class="empty-label">No comments yet...</div>
+		{/foreach}
+	</section>
+{/template}
+
+/**
+ *
+ */
+{template .signIn}
+	<section class="sign-in">
+		<button class="btn btn-lg btn-primary" data-onclick="handleSignInClick_">Sign In</button>
 	</section>
 {/template}
 
@@ -78,26 +105,6 @@
 			</a>
 		{ifempty}
 			<div class="empty-label">No talks yet...</div>
-		{/foreach}
-	</section>
-{/template}
-
-/**
- * @param comments
- */
-{template .comments}
-	<section class="comments">
-		{foreach $comment in $comments}
-			<div class="comment" key="{$comment.id}">
-				<div class="comment-topper">
-					<span class="comment-user">{$comment.user.name}</span>
-					<span class="comment-time">{$comment.time}</span>
-				</div>
-
-				<span class="comment-text">{$comment.text}</span>
-			</div>
-		{ifempty}
-			<div class="empty-label">No comments yet...</div>
 		{/foreach}
 	</section>
 {/template}
