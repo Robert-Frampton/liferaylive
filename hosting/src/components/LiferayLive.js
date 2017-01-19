@@ -24,12 +24,16 @@ class LiferayLive extends Component {
 		const auth = WeDeploy.auth(authUrl);
 		const data = WeDeploy.data(dataUrl);
 
-		this.currentUser = auth.currentUser;
-
-		auth.onSignIn(this.handleSignedIn.bind(this));
-
 		this.auth = auth;
 		this.data = data;
+
+		const currentUser = auth.currentUser;
+
+		if (currentUser) {
+			this.handleSignedIn(currentUser);
+		}
+
+		auth.onSignIn(this.handleSignedIn.bind(this));
 
 		navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 	}

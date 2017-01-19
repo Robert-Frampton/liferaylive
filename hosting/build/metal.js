@@ -14500,12 +14500,16 @@ babelHelpers;
 				var auth = WeDeploy.auth(authUrl);
 				var data = WeDeploy.data(dataUrl);
 
-				this.currentUser = auth.currentUser;
-
-				auth.onSignIn(this.handleSignedIn.bind(this));
-
 				this.auth = auth;
 				this.data = data;
+
+				var currentUser = auth.currentUser;
+
+				if (currentUser) {
+					this.handleSignedIn(currentUser);
+				}
+
+				auth.onSignIn(this.handleSignedIn.bind(this));
 
 				navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 			}
