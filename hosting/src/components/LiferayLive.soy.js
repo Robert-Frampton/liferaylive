@@ -33,6 +33,8 @@ var ie_open_end = IncrementalDom.elementOpenEnd;
 var itext = IncrementalDom.text;
 var iattr = IncrementalDom.attr;
 
+var $templateAlias1 = Soy.getTemplate('Comment.incrementaldom', 'render');
+
 
 /**
  * @param {Object<string, *>=} opt_data
@@ -56,8 +58,8 @@ function $render(opt_data, opt_ignored, opt_ijData) {
       if (opt_data.talk) {
         ie_open('h3');
           itext('Talk: ');
-          var dyn0 = opt_data.talk.name;
-          if (typeof dyn0 == 'function') dyn0(); else if (dyn0 != null) itext(dyn0);
+          var dyn4 = opt_data.talk.name;
+          if (typeof dyn4 == 'function') dyn4(); else if (dyn4 != null) itext(dyn4);
         ie_close('h3');
       }
     ie_close('div');
@@ -127,33 +129,12 @@ if (goog.DEBUG) {
 function $comments(opt_data, opt_ignored, opt_ijData) {
   ie_open('section', null, null,
       'class', 'comments');
-    var commentList34 = opt_data.comments;
-    var commentListLen34 = commentList34.length;
-    if (commentListLen34 > 0) {
-      for (var commentIndex34 = 0; commentIndex34 < commentListLen34; commentIndex34++) {
-        var commentData34 = commentList34[commentIndex34];
-        ie_open('div', commentData34.id, null,
-            'class', 'comment',
-            'key', commentData34.id);
-          ie_open('div', null, null,
-              'class', 'comment-topper');
-            ie_open('span', null, null,
-                'class', 'comment-user');
-              var dyn1 = commentData34.user.name;
-              if (typeof dyn1 == 'function') dyn1(); else if (dyn1 != null) itext(dyn1);
-            ie_close('span');
-            ie_open('span', null, null,
-                'class', 'comment-time');
-              var dyn2 = commentData34.time;
-              if (typeof dyn2 == 'function') dyn2(); else if (dyn2 != null) itext(dyn2);
-            ie_close('span');
-          ie_close('div');
-          ie_open('span', null, null,
-              'class', 'comment-text');
-            var dyn3 = commentData34.text;
-            if (typeof dyn3 == 'function') dyn3(); else if (dyn3 != null) itext(dyn3);
-          ie_close('span');
-        ie_close('div');
+    var commentList63 = opt_data.comments;
+    var commentListLen63 = commentList63.length;
+    if (commentListLen63 > 0) {
+      for (var commentIndex63 = 0; commentIndex63 < commentListLen63; commentIndex63++) {
+        var commentData63 = commentList63[commentIndex63];
+        $templateAlias1(soy.$$assignDefaults({comment: commentData63, key: 'comment_' + commentData63.id}, opt_data), null, opt_ijData);
       }
     } else {
       ie_open('div', null, null,
@@ -238,22 +219,22 @@ if (goog.DEBUG) {
 function $talks(opt_data, opt_ignored, opt_ijData) {
   ie_open('section', null, null,
       'class', 'talks');
-    var talkList54 = opt_data.talks;
-    var talkListLen54 = talkList54.length;
-    if (talkListLen54 > 0) {
-      for (var talkIndex54 = 0; talkIndex54 < talkListLen54; talkIndex54++) {
-        var talkData54 = talkList54[talkIndex54];
-        ie_open('a', talkData54.id, null,
+    var talkList83 = opt_data.talks;
+    var talkListLen83 = talkList83.length;
+    if (talkListLen83 > 0) {
+      for (var talkIndex83 = 0; talkIndex83 < talkListLen83; talkIndex83++) {
+        var talkData83 = talkList83[talkIndex83];
+        ie_open('a', talkData83.id, null,
             'class', 'talk',
             'data-onclick', 'handleTalkClick_',
-            'data-talkid', talkData54.id,
-            'data-talkname', talkData54.name,
+            'data-talkid', talkData83.id,
+            'data-talkname', talkData83.name,
             'href', 'javascript:;',
-            'key', talkData54.id);
+            'key', talkData83.id);
           ie_open('span', null, null,
               'class', 'talk-name');
-            var dyn4 = talkData54.name;
-            if (typeof dyn4 == 'function') dyn4(); else if (dyn4 != null) itext(dyn4);
+            var dyn5 = talkData83.name;
+            if (typeof dyn5 == 'function') dyn5(); else if (dyn5 != null) itext(dyn5);
           ie_close('span');
         ie_close('a');
       }

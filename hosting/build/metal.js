@@ -14216,6 +14216,252 @@ babelHelpers;
   var templates;
   goog.loadModule(function (exports) {
 
+    // This file was automatically generated from Comment.soy.
+    // Please don't edit this file by hand.
+
+    /**
+     * @fileoverview Templates in namespace Comment.
+     * @public
+     */
+
+    goog.module('Comment.incrementaldom');
+
+    /** @suppress {extraRequire} */
+    var soy = goog.require('soy');
+    /** @suppress {extraRequire} */
+    var soydata = goog.require('soydata');
+    /** @suppress {extraRequire} */
+    goog.require('goog.i18n.bidi');
+    /** @suppress {extraRequire} */
+    goog.require('goog.asserts');
+    /** @suppress {extraRequire} */
+    goog.require('goog.string');
+    var IncrementalDom = goog.require('incrementaldom');
+    var ie_open = IncrementalDom.elementOpen;
+    var ie_close = IncrementalDom.elementClose;
+    var ie_void = IncrementalDom.elementVoid;
+    var ie_open_start = IncrementalDom.elementOpenStart;
+    var ie_open_end = IncrementalDom.elementOpenEnd;
+    var itext = IncrementalDom.text;
+    var iattr = IncrementalDom.attr;
+
+    /**
+     * @param {Object<string, *>=} opt_data
+     * @param {(null|undefined)=} opt_ignored
+     * @param {Object<string, *>=} opt_ijData
+     * @return {void}
+     * @suppress {checkTypes}
+     */
+    function $render(opt_data, opt_ignored, opt_ijData) {
+      ie_open('div', opt_data.comment.id, null, 'class', 'comment', 'key', opt_data.comment.id);
+      ie_open('div', null, null, 'class', 'comment-topper');
+      ie_open('span', null, null, 'class', 'comment-user');
+      var dyn0 = opt_data.comment.user.name;
+      if (typeof dyn0 == 'function') dyn0();else if (dyn0 != null) itext(dyn0);
+      ie_close('span');
+      ie_open('span', null, null, 'class', 'comment-time');
+      var dyn1 = opt_data.comment.displayTime;
+      if (typeof dyn1 == 'function') dyn1();else if (dyn1 != null) itext(dyn1);
+      ie_close('span');
+      ie_close('div');
+      ie_open('div', null, null, 'class', 'comment-body');
+      ie_open('span', null, null, 'class', 'comment-text');
+      var dyn2 = opt_data.comment.text;
+      if (typeof dyn2 == 'function') dyn2();else if (dyn2 != null) itext(dyn2);
+      ie_close('span');
+      ie_close('div');
+      ie_open('div', null, null, 'class', 'comment-footer');
+      $reaction(soy.$$assignDefaults({ icon: 'thumbs-o-up', type: 'liked' }, opt_data), null, opt_ijData);
+      $reaction(soy.$$assignDefaults({ icon: 'thumbs-o-down', type: 'disliked' }, opt_data), null, opt_ijData);
+      ie_close('div');
+      ie_close('div');
+    }
+    exports.render = $render;
+    if (goog.DEBUG) {
+      $render.soyTemplateName = 'Comment.render';
+    }
+
+    /**
+     * @param {Object<string, *>=} opt_data
+     * @param {(null|undefined)=} opt_ignored
+     * @param {Object<string, *>=} opt_ijData
+     * @return {void}
+     * @suppress {checkTypes}
+     */
+    function $reaction(opt_data, opt_ignored, opt_ijData) {
+      ie_open('a', null, null, 'class', 'reaction' + (opt_data.currentUserReactions[opt_data.type] ? ' selected' : ''), 'data-onclick', 'handleReactionClick_', 'data-reactiontype', opt_data.type, 'href', 'javascript:;');
+      ie_void('i', null, null, 'class', 'fa fa-' + opt_data.icon, 'aria-hidden', 'true');
+      if (opt_data.comment.reactions && opt_data.comment.reactions[opt_data.type]) {
+        var reactionLength__soy29 = opt_data.comment.reactions[opt_data.type].length;
+        if (reactionLength__soy29 > 0) {
+          ie_open('span', null, null, 'class', 'count-sticker');
+          var dyn3 = reactionLength__soy29;
+          if (typeof dyn3 == 'function') dyn3();else if (dyn3 != null) itext(dyn3);
+          ie_close('span');
+        }
+      }
+      ie_close('a');
+    }
+    exports.reaction = $reaction;
+    if (goog.DEBUG) {
+      $reaction.soyTemplateName = 'Comment.reaction';
+    }
+
+    exports.render.params = ["comment", "currentUserReactions"];
+    exports.render.types = { "comment": "any", "currentUserReactions": "any" };
+    exports.reaction.params = ["comment", "currentUserReactions", "icon", "type"];
+    exports.reaction.types = { "comment": "any", "currentUserReactions": "any", "icon": "any", "type": "any" };
+    templates = exports;
+    return exports;
+  });
+
+  var Comment = function (_Component) {
+    babelHelpers.inherits(Comment, _Component);
+
+    function Comment() {
+      babelHelpers.classCallCheck(this, Comment);
+      return babelHelpers.possibleConstructorReturn(this, (Comment.__proto__ || Object.getPrototypeOf(Comment)).apply(this, arguments));
+    }
+
+    return Comment;
+  }(Component);
+
+  Soy.register(Comment, templates);
+  this['metalNamed']['Comment'] = this['metalNamed']['Comment'] || {};
+  this['metalNamed']['Comment']['Comment'] = Comment;
+  this['metalNamed']['Comment']['templates'] = templates;
+  this['metal']['Comment'] = templates;
+  /* jshint ignore:end */
+}).call(this);
+'use strict';
+
+(function () {
+	var Component = this['metal']['component'];
+	var Soy = this['metal']['Soy'];
+	var templates = this['metal']['Comment'];
+
+	var Comment = function (_Component) {
+		babelHelpers.inherits(Comment, _Component);
+
+		function Comment() {
+			babelHelpers.classCallCheck(this, Comment);
+			return babelHelpers.possibleConstructorReturn(this, (Comment.__proto__ || Object.getPrototypeOf(Comment)).apply(this, arguments));
+		}
+
+		babelHelpers.createClass(Comment, [{
+			key: 'handleReactionClick_',
+			value: function handleReactionClick_(event) {
+				var delegateTarget = event.delegateTarget;
+
+
+				this.toggleReaction(delegateTarget.getAttribute('data-reactiontype'));
+			}
+		}, {
+			key: 'setComment_',
+			value: function setComment_(comment) {
+				var _this2 = this;
+
+				var currentUser = this.currentUser;
+
+
+				if (comment) {
+					(function () {
+						var time = new Date(comment.time);
+
+						var minutes = time.getMinutes();
+
+						if (minutes < 10) {
+							minutes = '0' + minutes;
+						}
+
+						comment.displayTime = time.getHours() + ':' + minutes;
+
+						var reactions = comment.reactions || {};
+
+						_this2.currentUserReactions = Object.keys(reactions).reduce(function (userReactions, reaction) {
+							userReactions[reaction] = reactions[reaction].includes(currentUser.id);
+
+							return userReactions;
+						}, {});
+					})();
+				}
+
+				return comment;
+			}
+		}, {
+			key: 'toggleReaction',
+			value: function toggleReaction(reaction) {
+				var comment = this.comment;
+				var currentUser = this.currentUser;
+
+
+				comment.reactions = comment.reactions || {};
+				var userId = this.currentUser.id;
+
+				var reactionData = comment.reactions[reaction] || [];
+
+				if (reactionData.includes(userId)) {
+					reactionData.splice(reactionData.indexOf(userId), 1);
+				} else {
+					reactionData.push(userId);
+				}
+
+				comment.reactions[reaction] = reactionData;
+
+				this.updateComment(comment);
+			}
+		}, {
+			key: 'updateComment',
+			value: function updateComment(commentData) {
+				var id = this.comment.id;
+
+
+				delete commentData.id;
+				delete commentData.displayTime;
+
+				return this.data.update('comments/' + id, commentData);
+			}
+		}]);
+		return Comment;
+	}(Component);
+
+	Comment.STATE = {
+		auth: {
+			value: null
+		},
+
+		comment: {
+			setter: 'setComment_',
+			value: {}
+		},
+
+		currentUser: {
+			value: null
+		},
+
+		currentUserReactions: {
+			value: {}
+		},
+
+		data: {
+			value: null
+		}
+	};
+
+	Soy.register(Comment, templates);
+
+	this['metal']['Comment'] = Comment;
+}).call(this);
+'use strict';
+
+(function () {
+  /* jshint ignore:start */
+  var Component = this['metal']['component'];
+  var Soy = this['metal']['Soy'];
+
+  var templates;
+  goog.loadModule(function (exports) {
+
     // This file was automatically generated from LiferayLive.soy.
     // Please don't edit this file by hand.
 
@@ -14245,6 +14491,8 @@ babelHelpers;
     var itext = IncrementalDom.text;
     var iattr = IncrementalDom.attr;
 
+    var $templateAlias1 = Soy.getTemplate('Comment.incrementaldom', 'render');
+
     /**
      * @param {Object<string, *>=} opt_data
      * @param {(null|undefined)=} opt_ignored
@@ -14264,8 +14512,8 @@ babelHelpers;
       if (opt_data.talk) {
         ie_open('h3');
         itext('Talk: ');
-        var dyn0 = opt_data.talk.name;
-        if (typeof dyn0 == 'function') dyn0();else if (dyn0 != null) itext(dyn0);
+        var dyn4 = opt_data.talk.name;
+        if (typeof dyn4 == 'function') dyn4();else if (dyn4 != null) itext(dyn4);
         ie_close('h3');
       }
       ie_close('div');
@@ -14321,27 +14569,12 @@ babelHelpers;
      */
     function $comments(opt_data, opt_ignored, opt_ijData) {
       ie_open('section', null, null, 'class', 'comments');
-      var commentList34 = opt_data.comments;
-      var commentListLen34 = commentList34.length;
-      if (commentListLen34 > 0) {
-        for (var commentIndex34 = 0; commentIndex34 < commentListLen34; commentIndex34++) {
-          var commentData34 = commentList34[commentIndex34];
-          ie_open('div', commentData34.id, null, 'class', 'comment', 'key', commentData34.id);
-          ie_open('div', null, null, 'class', 'comment-topper');
-          ie_open('span', null, null, 'class', 'comment-user');
-          var dyn1 = commentData34.user.name;
-          if (typeof dyn1 == 'function') dyn1();else if (dyn1 != null) itext(dyn1);
-          ie_close('span');
-          ie_open('span', null, null, 'class', 'comment-time');
-          var dyn2 = commentData34.time;
-          if (typeof dyn2 == 'function') dyn2();else if (dyn2 != null) itext(dyn2);
-          ie_close('span');
-          ie_close('div');
-          ie_open('span', null, null, 'class', 'comment-text');
-          var dyn3 = commentData34.text;
-          if (typeof dyn3 == 'function') dyn3();else if (dyn3 != null) itext(dyn3);
-          ie_close('span');
-          ie_close('div');
+      var commentList63 = opt_data.comments;
+      var commentListLen63 = commentList63.length;
+      if (commentListLen63 > 0) {
+        for (var commentIndex63 = 0; commentIndex63 < commentListLen63; commentIndex63++) {
+          var commentData63 = commentList63[commentIndex63];
+          $templateAlias1(soy.$$assignDefaults({ comment: commentData63, key: 'comment_' + commentData63.id }, opt_data), null, opt_ijData);
         }
       } else {
         ie_open('div', null, null, 'class', 'empty-label');
@@ -14408,15 +14641,15 @@ babelHelpers;
      */
     function $talks(opt_data, opt_ignored, opt_ijData) {
       ie_open('section', null, null, 'class', 'talks');
-      var talkList54 = opt_data.talks;
-      var talkListLen54 = talkList54.length;
-      if (talkListLen54 > 0) {
-        for (var talkIndex54 = 0; talkIndex54 < talkListLen54; talkIndex54++) {
-          var talkData54 = talkList54[talkIndex54];
-          ie_open('a', talkData54.id, null, 'class', 'talk', 'data-onclick', 'handleTalkClick_', 'data-talkid', talkData54.id, 'data-talkname', talkData54.name, 'href', 'javascript:;', 'key', talkData54.id);
+      var talkList83 = opt_data.talks;
+      var talkListLen83 = talkList83.length;
+      if (talkListLen83 > 0) {
+        for (var talkIndex83 = 0; talkIndex83 < talkListLen83; talkIndex83++) {
+          var talkData83 = talkList83[talkIndex83];
+          ie_open('a', talkData83.id, null, 'class', 'talk', 'data-onclick', 'handleTalkClick_', 'data-talkid', talkData83.id, 'data-talkname', talkData83.name, 'href', 'javascript:;', 'key', talkData83.id);
           ie_open('span', null, null, 'class', 'talk-name');
-          var dyn4 = talkData54.name;
-          if (typeof dyn4 == 'function') dyn4();else if (dyn4 != null) itext(dyn4);
+          var dyn5 = talkData83.name;
+          if (typeof dyn5 == 'function') dyn5();else if (dyn5 != null) itext(dyn5);
           ie_close('span');
           ie_close('a');
         }
@@ -14537,14 +14770,6 @@ babelHelpers;
 		}, {
 			key: 'afterFetchComments_',
 			value: function afterFetchComments_(comments) {
-				comments = comments.map(function (comment) {
-					var time = new Date(comment.time);
-
-					comment.time = time.getHours() + ':' + time.getMinutes();
-
-					return comment;
-				});
-
 				this.notify_();
 
 				this.comments = comments;
@@ -14710,11 +14935,19 @@ babelHelpers;
 	}(Component);
 
 	LiferayLive.STATE = {
+		auth: {
+			value: null
+		},
+
 		comments: {
 			value: []
 		},
 
 		currentUser: {
+			value: null
+		},
+
+		data: {
 			value: null
 		},
 

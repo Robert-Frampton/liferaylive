@@ -71,28 +71,66 @@ input.form-control {
 	color: #EEE;
 }
 
-.talk, .comment {
+.comment, .talk {
 	background-color: rgba(255, 255, 255, 0.7);
 	border-radius: 5px;
+	display: inline-block;
 	margin: 5px 0;
-	padding: 10px;
+	width: 100%;
 }
 
 .talk {
-	display: block;
+	padding: 10px;
 }
 
-.comment .comment-topper {
+.comment-topper, .comment-body {
+	margin: 10px;
+}
+
+.comment-topper {
 	font-size: 12px;
 	margin-bottom: 10px;
 }
 
-.comment .comment-time {
+.comment-time {
 	float: right;
 }
 
-.comment .comment-text {
+.comment-text {
 	word-break: break-all;
+}
+
+.comment-footer {
+	border-top: 1px solid rgba(255, 255, 255, 0.3);
+	display: flex;
+	justify-content: space-around;
+}
+
+.comment-footer a {
+	padding: 5px;
+}
+
+.reaction {
+	position: relative;
+}
+
+.reaction.selected {
+	color: #999;
+}
+
+.reaction .count-sticker {
+	background-color: red;
+	border-radius: 5px;
+	bottom: 40%;
+	color: #FFF;
+	display: inline-block;
+	font-size: 10px;
+	height: 14px;
+	left: 100%;
+	line-height: 14px;
+	min-width: 14px;
+	position: absolute;
+	text-align: center;
 }
 
 .empty-label {

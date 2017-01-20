@@ -50,14 +50,10 @@
 {template .comments}
 	<section class="comments">
 		{foreach $comment in $comments}
-			<div class="comment" key="{$comment.id}">
-				<div class="comment-topper">
-					<span class="comment-user">{$comment.user.name}</span>
-					<span class="comment-time">{$comment.time}</span>
-				</div>
-
-				<span class="comment-text">{$comment.text}</span>
-			</div>
+			{call Comment.render data="all"}
+				{param comment: $comment /}
+				{param key: 'comment_' + $comment.id /}
+			{/call}
 		{ifempty}
 			<div class="empty-label">No comments yet...</div>
 		{/foreach}

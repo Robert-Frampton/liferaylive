@@ -1,0 +1,55 @@
+{namespace Comment}
+
+/**
+ * @param comment
+ * @param? currentUserReactions
+ */
+{template .render}
+	<div class="comment" key="{$comment.id}">
+		<div class="comment-topper">
+			<span class="comment-user">{$comment.user.name}</span>
+			<span class="comment-time">{$comment.displayTime}</span>
+		</div>
+
+		<div class="comment-body">
+			<span class="comment-text">{$comment.text}</span>
+		</div>
+
+		<div class="comment-footer">
+			{call .reaction data="all"}
+				{param icon: 'thumbs-o-up' /}
+				{param type: 'liked' /}
+			{/call}
+
+			{call .reaction data="all"}
+				{param icon: 'thumbs-o-down' /}
+				{param type: 'disliked' /}
+			{/call}
+		</div>
+	</div>
+{/template}
+
+/**
+ * @param comment
+ * @param? currentUserReactions
+ * @param icon
+ * @param? type
+ */
+{template .reaction}
+	<a
+		class="reaction{$currentUserReactions[$type] ? ' selected' : ''}"
+		data-onclick="handleReactionClick_"
+		data-reactiontype="{$type}"
+		href="javascript:;"
+	>
+		<i class="fa fa-{$icon}" aria-hidden="true"></i>
+
+		{if $comment.reactions and $comment.reactions[$type]}
+			{let $reactionLength: length($comment.reactions[$type]) /}
+
+			{if $reactionLength > 0}
+				<span class="count-sticker">{$reactionLength}</span>
+			{/if}
+		{/if}
+	</a>
+{/template}

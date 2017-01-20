@@ -55,14 +55,6 @@ class LiferayLive extends Component {
 	}
 
 	afterFetchComments_(comments) {
-		comments = comments.map(comment => {
-			const time = new Date(comment.time);
-
-			comment.time = `${time.getHours()}:${time.getMinutes()}`;
-
-			return comment;
-		});
-
 		this.notify_();
 
 		this.comments = comments;
@@ -206,11 +198,19 @@ class LiferayLive extends Component {
 }
 
 LiferayLive.STATE = {
+	auth: {
+		value: null
+	},
+
 	comments: {
 		value: []
 	},
 
 	currentUser: {
+		value: null
+	},
+
+	data: {
 		value: null
 	},
 
