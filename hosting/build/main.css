@@ -28,6 +28,10 @@ a:hover {
 	margin: 40px 0;
 }
 
+.comment-form, .talk-form {
+	margin-bottom: 5px;
+}
+
 input.form-control {
 	border-radius: 5px;
 	border-width: 0;
@@ -102,7 +106,7 @@ input.form-control {
 }
 
 .comment-text {
-	word-break: break-all;
+	word-break: break-word;
 }
 
 .comment-footer {
