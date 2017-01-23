@@ -1,10 +1,12 @@
 [
 	{
 		"path": "/comments/*",
+		"method": ["GET", "POST", "PUT"],
 		"data": true
 	},
 	{
 		"path": "/talks/*",
+		"method": ["GET", "POST", "PUT"],
 		"data": true
 	}
 ]
