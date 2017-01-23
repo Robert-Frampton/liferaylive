@@ -183,6 +183,10 @@ if (goog.DEBUG) {
 function $talkForm(opt_data, opt_ignored, opt_ijData) {
   ie_open('section', null, null,
       'class', 'talk-form');
+    ie_open('div', null, null,
+        'class', 'form-label');
+      itext('Click on the name of the talk you would like to discuss. Create a new talk if you don\'t see the one you want.');
+    ie_close('div');
     ie_open('form', null, null,
         'data-onsubmit', 'handleTalkSubmit_');
       ie_open('div', null, null,

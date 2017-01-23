@@ -23,6 +23,11 @@ a:hover {
 	color: #4CAADC;
 }
 
+.form-label {
+	color: #FFF;
+	margin: 40px 0;
+}
+
 input.form-control {
 	border-radius: 5px;
 	border-width: 0;
