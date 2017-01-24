@@ -1,0 +1,149 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-attachment: fixed;
+	background: #67B26F;
+	background: -webkit-linear-gradient(to top, #67B26F , #4CA2CD);
+	background: linear-gradient(to top, #67B26F , #4CA2CD);
+	color: #333;
+	font-family: 'Raleway', sans-serif;
+	margin: 0;
+	min-height: 100vh;
+	padding: 20px;
+}
+
+a {
+	color: #4090BB;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #4CAADC;
+}
+
+.form-label {
+	color: #FFF;
+	margin: 40px 0;
+}
+
+.comment-form, .talk-form {
+	margin-bottom: 5px;
+}
+
+input.form-control {
+	border-radius: 5px;
+	border-width: 0;
+}
+
+.input-submit-group {
+	position: relative;
+}
+
+.input-submit-group input {
+	padding-right: 40px;
+}
+
+.input-submit-group .btn {
+	border-radius: 0 3px 3px 0;
+	font-size: 28px;
+	line-height: 20px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	border-width: 0;
+}
+
+.sign-in {
+	text-align: center;
+}
+
+.topper, .container {
+	margin: 0 auto;
+	max-width: 400px;
+}
+
+.topper {
+	color: #FFF;
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+.topper h1 a {
+	color: #FFF;
+	text-decoration: none;
+}
+
+.topper h1 a:hover {
+	color: #EEE;
+}
+
+.comment, .talk {
+	background-color: rgba(255, 255, 255, 0.7);
+	border-radius: 5px;
+	display: inline-block;
+	margin: 5px 0;
+	width: 100%;
+}
+
+.talk {
+	padding: 10px;
+}
+
+.comment-topper, .comment-body {
+	margin: 10px;
+}
+
+.comment-topper {
+	font-size: 12px;
+	margin-bottom: 10px;
+}
+
+.comment-time {
+	float: right;
+}
+
+.comment-text {
+	word-break: break-word;
+}
+
+.comment-footer {
+	border-top: 1px solid rgba(255, 255, 255, 0.3);
+	display: flex;
+	justify-content: space-around;
+}
+
+.comment-footer a {
+	padding: 5px;
+}
+
+.reaction {
+	position: relative;
+}
+
+.reaction.selected {
+	color: #999;
+}
+
+.reaction .count-sticker {
+	background-color: red;
+	border-radius: 5px;
+	bottom: 40%;
+	color: #FFF;
+	display: inline-block;
+	font-size: 10px;
+	height: 14px;
+	left: 100%;
+	line-height: 14px;
+	min-width: 14px;
+	position: absolute;
+	text-align: center;
+}
+
+.empty-label {
+	color: #FFF;
+	margin: 20px 0;
+	text-align: center;
+}

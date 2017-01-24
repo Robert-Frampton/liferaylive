@@ -5,12 +5,13 @@
   "description": "",
   "main": "gulpfile.js",
   "scripts": {
-    "build": "metal build",
-    "watch": "metal watch"
+    "build": "metal build -d dist/scripts && gulp build",
+    "watch": "metal watch -d dist/scripts"
   },
   "author": "Rob Frampton <rob.g.frampton@gmail.com> (https://github.com/Robert-Frampton)",
   "license": "ISC",
   "devDependencies": {
+    "gulp": "^3.9.1",
     "metal-cli": "^2.1.2",
     "metal-component": "^2.6.2",
     "metal-soy": "^2.6.2"
