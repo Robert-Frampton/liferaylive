@@ -162,7 +162,7 @@ function $signIn(opt_data, opt_ignored, opt_ijData) {
       'class', 'sign-in');
     ie_open('button', null, null,
         'class', 'btn btn-lg btn-primary',
-        'data-onclick', 'handleSignInClick_');
+        'data-onclick', 'signIn');
       itext('Sign In');
     ie_close('button');
   ie_close('section');

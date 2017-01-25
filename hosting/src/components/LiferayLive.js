@@ -116,10 +116,6 @@ class LiferayLive extends Component {
 		this.watchTalks_();
 	}
 
-	handleSignInClick_() {
-		this.signIn();
-	}
-
 	handleTalkClick_(event) {
 		const {delegateTarget} = event;
 
