@@ -1,16 +1,10 @@
 [
 	{
-		"auth": {
-			"validator": "$auth != null"
-		},
 		"path": "/comments/*",
 		"method": ["GET", "POST", "PUT"],
 		"data": true
 	},
 	{
-		"auth": {
-			"validator": "$auth != null"
-		},
 		"path": "/talks/*",
 		"method": ["GET", "POST", "PUT"],
 		"data": true
