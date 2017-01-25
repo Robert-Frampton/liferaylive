@@ -14001,7 +14001,7 @@ babelHelpers;
 				component.getStateKeys().forEach(function (key) {
 					var value = component[key];
 					if (_this2.isHtmlParam_(component, key)) {
-						value = soyRenderer.toIncDom(value);
+						value = soyRenderer_.toIncDom(value);
 					}
 					data[key] = value;
 				});
@@ -14096,7 +14096,7 @@ babelHelpers;
 			value: function register(componentCtor, templates) {
 				var mainTemplate = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'render';
 
-				componentCtor.RENDERER = soyRenderer;
+				componentCtor.RENDERER = soyRenderer_;
 				componentCtor.TEMPLATE = SoyAop.getOriginalFn(templates[mainTemplate]);
 				componentCtor.TEMPLATE.componentCtor = componentCtor;
 				SoyAop.registerForInterception(templates, mainTemplate);
@@ -14198,12 +14198,12 @@ babelHelpers;
 		return Soy;
 	}(IncrementalDomRenderer.constructor);
 
-	var soyRenderer = new Soy();
-	Soy.RENDERER_NAME = 'soy';
+	var soyRenderer_ = new Soy();
+	soyRenderer_.RENDERER_NAME = 'soy';
 
-	this['metal']['Soy'] = soyRenderer;
+	this['metal']['Soy'] = soyRenderer_;
 	this['metalNamed']['Soy'] = this['metalNamed']['Soy'] || {};
-	this['metalNamed']['Soy']['Soy'] = soyRenderer;
+	this['metalNamed']['Soy']['Soy'] = soyRenderer_;
 	this['metalNamed']['Soy']['SoyAop'] = SoyAop;
 }).call(this);
 'use strict';
@@ -14289,7 +14289,7 @@ babelHelpers;
      * @suppress {checkTypes}
      */
     function $reaction(opt_data, opt_ignored, opt_ijData) {
-      ie_open('a', null, null, 'class', 'reaction' + (opt_data.currentUserReactions[opt_data.type] ? ' selected' : ''), 'data-onclick', 'handleReactionClick_', 'data-reactiontype', opt_data.type, 'href', 'javascript:;');
+      ie_open('a', null, null, 'class', 'reaction' + (opt_data.comment.currentUserReactions && opt_data.comment.currentUserReactions[opt_data.type] ? ' selected' : ''), 'data-onclick', 'handleReactionClick_', 'data-reactiontype', opt_data.type, 'href', 'javascript:;');
       ie_void('i', null, null, 'class', 'fa fa-' + opt_data.icon, 'aria-hidden', 'true');
       if (opt_data.comment.reactions && opt_data.comment.reactions[opt_data.type]) {
         var reactionLength__soy29 = opt_data.comment.reactions[opt_data.type].length;
@@ -14307,10 +14307,10 @@ babelHelpers;
       $reaction.soyTemplateName = 'Comment.reaction';
     }
 
-    exports.render.params = ["comment", "currentUserReactions"];
-    exports.render.types = { "comment": "any", "currentUserReactions": "any" };
-    exports.reaction.params = ["comment", "currentUserReactions", "icon", "type"];
-    exports.reaction.types = { "comment": "any", "currentUserReactions": "any", "icon": "any", "type": "any" };
+    exports.render.params = ["comment"];
+    exports.render.types = { "comment": "any" };
+    exports.reaction.params = ["comment", "icon", "type"];
+    exports.reaction.types = { "comment": "any", "icon": "any", "type": "any" };
     templates = exports;
     return exports;
   });
@@ -14359,8 +14359,6 @@ babelHelpers;
 		}, {
 			key: 'setComment_',
 			value: function setComment_(comment) {
-				var _this2 = this;
-
 				var currentUser = this.currentUser;
 
 
@@ -14378,7 +14376,7 @@ babelHelpers;
 
 						var reactions = comment.reactions || {};
 
-						_this2.currentUserReactions = Object.keys(reactions).reduce(function (userReactions, reaction) {
+						comment.currentUserReactions = Object.keys(reactions).reduce(function (userReactions, reaction) {
 							userReactions[reaction] = reactions[reaction].includes(currentUser.id);
 
 							return userReactions;
@@ -14416,8 +14414,9 @@ babelHelpers;
 				var id = this.comment.id;
 
 
-				delete commentData.id;
+				delete commentData.currentUserReactions;
 				delete commentData.displayTime;
+				delete commentData.id;
 
 				return this.data.update('comments/' + id, commentData);
 			}
@@ -14437,10 +14436,6 @@ babelHelpers;
 
 		currentUser: {
 			value: null
-		},
-
-		currentUserReactions: {
-			value: {}
 		},
 
 		data: {
@@ -14597,7 +14592,7 @@ babelHelpers;
      */
     function $signIn(opt_data, opt_ignored, opt_ijData) {
       ie_open('section', null, null, 'class', 'sign-in');
-      ie_open('button', null, null, 'class', 'btn btn-lg btn-primary', 'data-onclick', 'handleSignInClick_');
+      ie_open('button', null, null, 'class', 'btn btn-lg btn-primary', 'data-onclick', 'signIn');
       itext('Sign In');
       ie_close('button');
       ie_close('section');
@@ -14843,11 +14838,6 @@ babelHelpers;
 
 				this.fetchTalks_();
 				this.watchTalks_();
-			}
-		}, {
-			key: 'handleSignInClick_',
-			value: function handleSignInClick_() {
-				this.signIn();
 			}
 		}, {
 			key: 'handleTalkClick_',
