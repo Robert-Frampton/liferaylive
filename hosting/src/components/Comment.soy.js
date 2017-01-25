@@ -88,7 +88,7 @@ if (goog.DEBUG) {
  */
 function $reaction(opt_data, opt_ignored, opt_ijData) {
   ie_open('a', null, null,
-      'class', 'reaction' + (opt_data.currentUserReactions[opt_data.type] ? ' selected' : ''),
+      'class', 'reaction' + (opt_data.comment.currentUserReactions && opt_data.comment.currentUserReactions[opt_data.type] ? ' selected' : ''),
       'data-onclick', 'handleReactionClick_',
       'data-reactiontype', opt_data.type,
       'href', 'javascript:;');
@@ -112,10 +112,10 @@ if (goog.DEBUG) {
   $reaction.soyTemplateName = 'Comment.reaction';
 }
 
-exports.render.params = ["comment","currentUserReactions"];
-exports.render.types = {"comment":"any","currentUserReactions":"any"};
-exports.reaction.params = ["comment","currentUserReactions","icon","type"];
-exports.reaction.types = {"comment":"any","currentUserReactions":"any","icon":"any","type":"any"};
+exports.render.params = ["comment"];
+exports.render.types = {"comment":"any"};
+exports.reaction.params = ["comment","icon","type"];
+exports.reaction.types = {"comment":"any","icon":"any","type":"any"};
 templates = exports;
 return exports;
 

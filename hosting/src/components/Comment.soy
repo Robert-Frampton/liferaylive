@@ -2,7 +2,6 @@
 
 /**
  * @param comment
- * @param? currentUserReactions
  */
 {template .render}
 	<div class="comment" key="{$comment.id}">
@@ -31,13 +30,12 @@
 
 /**
  * @param comment
- * @param? currentUserReactions
  * @param icon
  * @param? type
  */
 {template .reaction}
 	<a
-		class="reaction{$currentUserReactions[$type] ? ' selected' : ''}"
+		class="reaction{$comment.currentUserReactions and $comment.currentUserReactions[$type] ? ' selected' : ''}"
 		data-onclick="handleReactionClick_"
 		data-reactiontype="{$type}"
 		href="javascript:;"

@@ -28,7 +28,7 @@ class Comment extends Component {
 
 			const reactions = comment.reactions || {};
 
-			this.currentUserReactions = Object.keys(reactions).reduce((userReactions, reaction) => {
+			comment.currentUserReactions = Object.keys(reactions).reduce((userReactions, reaction) => {
 				userReactions[reaction] = reactions[reaction].includes(currentUser.id);
 
 				return userReactions;
@@ -61,8 +61,9 @@ class Comment extends Component {
 	updateComment(commentData) {
 		const {id} = this.comment;
 
-		delete commentData.id;
+		delete commentData.currentUserReactions;
 		delete commentData.displayTime;
+		delete commentData.id;
 
 		return this.data.update(`comments/${id}`, commentData);
 	}
@@ -80,10 +81,6 @@ Comment.STATE = {
 
 	currentUser: {
 		value: null
-	},
-
-	currentUserReactions: {
-		value: {}
 	},
 
 	data: {
