@@ -55,7 +55,9 @@ class LiferayLive extends Component {
 	}
 
 	afterFetchComments_(comments) {
-		this.notify_();
+		if (comments.length !== this.comments.length) {
+			this.notify_();
+		}
 
 		this.comments = comments;
 	}
@@ -149,7 +151,7 @@ class LiferayLive extends Component {
 
 	notify_() {
 		if (navigator.vibrate) {
-			navigator.vibrate(400);
+			navigator.vibrate([100, 400]);
 		}
 	}
 
