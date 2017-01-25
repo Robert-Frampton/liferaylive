@@ -14768,7 +14768,9 @@ babelHelpers;
 		}, {
 			key: 'afterFetchComments_',
 			value: function afterFetchComments_(comments) {
-				this.notify_();
+				if (comments.length !== this.comments.length) {
+					this.notify_();
+				}
 
 				this.comments = comments;
 			}
@@ -14878,7 +14880,7 @@ babelHelpers;
 			key: 'notify_',
 			value: function notify_() {
 				if (navigator.vibrate) {
-					navigator.vibrate(400);
+					navigator.vibrate([100, 400]);
 				}
 			}
 		}, {
